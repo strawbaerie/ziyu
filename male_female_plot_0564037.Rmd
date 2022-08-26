@@ -1,0 +1,40 @@
+---
+title: "Male vs. Female Names"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r echo=FALSE}
+male_names <- readLines("../git_workshop/male_names.txt") 
+female_names <- readLines("../git_workshop/female_names.txt")
+
+male_first_letter <- str_sub(male_names, end=1) 
+female_first_letter <- str_sub(female_names, end=1) 
+```
+
+### Bar-chart for males:
+
+```{r}
+tibble(male_first = male_first_letter) %>%
+  count(male_first) %>%
+  ggplot(aes(x = male_first, y = n)) + geom_bar(stat = 'identity')
+```
+
+### Bar-chart for females:
+```{r}
+tibble(female_first = female_first_letter) %>%
+  count(female_first) %>%
+  ggplot(aes(x = female_first, y = n)) + geom_bar(stat = 'identity')
+
+```
+
+## Female got more letter A in their name as compared to males
+
+## Histogram of the number of characters in female names
+```{r}
+tibble(male_names_length = nchar(male_names)) %>% ggplot(aes(x = male_names_length, col="grey")) + geom_histogram(binwidth = 1)
+```
